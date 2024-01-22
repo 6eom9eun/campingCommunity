@@ -1,17 +1,22 @@
 /* eslint-disable */
 
-import { useState } from "react"
+import { createContext, useState } from "react"
 import {Button, Navbar, Container, Nav} from 'react-bootstrap'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import data from './data.js'
-import Detail from './routes/detail.js'
 import axios from 'axios' // AJAX 라이브러리
+
+import Detail from './routes/Detail.js'
+import Cart from './routes/Cart.js'
+
+export let Context1 = createContext(); // Context API 셋팅 1 (보관함)
 
 function App(){
 
   let [shoes, setShoes] = useState(data)
+  let [stock] = useState([10, 11, 12])
   let navigate = useNavigate();
 
   return (
@@ -54,12 +59,18 @@ function App(){
         </>
         }></Route>
 
-        <Route path="/detail/:id" element={<Detail shoes={shoes}/>}></Route>
-              
+        <Route path="/detail/:id" element={
+        <Context1.Provider value={{ stock }}>
+          <Detail shoes={shoes}/>
+        </Context1.Provider>}>
+        </Route>
+
       <Route path="/about" element={ <About/> } >  
         <Route path="frontend" element={ <div>프론트엔드</div> } />
         <Route path="backend" element={ <div>백엔드</div> } />
       </Route>
+
+      <Route path="/cart" element={<Cart/>} />
 
         <Route path="*" element={<div>없는페이지</div>}></Route>
       </Routes>
