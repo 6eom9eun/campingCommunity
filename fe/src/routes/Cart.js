@@ -1,10 +1,15 @@
 import { Table } from 'react-bootstrap';
+import {useDispatch, useSelector} from 'react-redux';
+import { changeName } from '../store.js';
 
 function Cart(){
 
-    
+    let state = useSelector((state)=>{ return state }) // 간단한 프로젝트는 props로 전달하는 것이 더 편하다.
+    let dispatch = useDispatch();
+
     return(
         <div>
+            {state.user}
             <Table>
                 <thead>
                     <tr>
@@ -15,12 +20,20 @@ function Cart(){
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <td>1</td>
-                    <td>안녕</td>
-                    <td>안녕</td>
-                    <td>안녕</td>
-                    </tr>
+                    {
+                        state.cart.map((a, i)=>
+                            <tr key={i}>
+                                <td>1</td>
+                                <td>{state.cart[i].name}</td>
+                                <td>{state.cart[i].count}</td>
+                                <td>
+                                    <button onClick={()=>{
+                                        dispatch(changeName())
+                                    }}>+</button>
+                                </td>
+                            </tr>
+                        )
+                    }
                 </tbody>
             </Table> 
         </div>

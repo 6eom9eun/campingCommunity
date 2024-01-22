@@ -4,8 +4,6 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components"; // css없이 js에서 스타일 정의, 다른 js에서 사용 X, 컴포넌트.module.css사용해도 됨
 import {Nav} from 'react-bootstrap'
 
-import {Context1} from  '../App.js'
-
 let Btn = styled.button`
     background : ${ props => props.bg };
     color : ${ props => props.bg == 'blue' ? 'white' : 'black' };
@@ -21,7 +19,6 @@ let Box = styled.div`
 
 function Detail(props){
 
-    let {stock} = useContext(Context1)
 
     let [alert, setAlert] = useState(true)
     let [ count, setCount] = useState(0)
@@ -81,7 +78,6 @@ function TapContent({tap}){
     return <div>내용2</div>
     }
     */
-    let {stock} = useContext(Context1)
     let [fade, setFade] = useState('')
 
     useEffect(()=>{ // 2등
